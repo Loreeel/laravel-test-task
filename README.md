@@ -33,6 +33,7 @@ http://localhost:8000
 
 # Авторизація та аутентифікація
  POST api/v1/register Реєстрація користувача
+ 
  Необхідні поля:
     {
     	"name":"Name",
@@ -41,6 +42,7 @@ http://localhost:8000
     }
     
  POST api/v1//login   Авторизація користувача
+ 
   Необхідні поля:
     {
     	"email":"mail@email.com",
