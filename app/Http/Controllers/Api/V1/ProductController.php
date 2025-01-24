@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -14,9 +16,28 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return ProductResource::collection(Product::with('category')->paginate());
+        $query = Product::query();
+
+        if ($request->has('category_id')) {
+            $query->where('category_id', $request->input('category_id'));
+        }
+
+        if ($request->has('min_price') && $request->has('max_price')) {
+            $query->whereBetween('price', [
+                $request->input('min_price'),
+                $request->input('max_price')
+            ]);
+        }
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->input('search') . '%');
+        }
+
+        $products = $query->with('category')->paginate(10);
+
+        return ProductResource::collection($products);
     }
 
     /**
