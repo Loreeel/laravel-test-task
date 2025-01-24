@@ -1,7 +1,7 @@
-# Базовый образ PHP с поддержкой FPM
+# Базовий образ PHP
 FROM php:8.2-fpm
 
-# Устанавливаем необходимые системные зависимости
+# Встановлення залежностей
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -13,27 +13,24 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Устанавливаем Composer
+# Встановлення Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Устанавливаем рабочую директорию
+# Встановлення робочої директорії
 WORKDIR /var/www/html
 
-# Копируем файлы проекта
+# Копіюємо файли проекта
 COPY . .
 
-# # Копируем пользовательские PHP настройки
-# COPY ./docker/php/local.ini /usr/local/etc/php/conf.d/local.ini
-
-# Устанавливаем зависимости через Composer
+# Встановлення залежностей через Composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Настраиваем права на директории storage и bootstrap/cache
+# Налаштування прав на директорії storage и bootstrap/cache
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Копируем entrypoint.sh
+# Копіюємо entrypoint.sh
 COPY ./docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Устанавливаем entrypoint
+# Встановлюємо entrypoint
 ENTRYPOINT ["sh", "/usr/local/bin/entrypoint.sh"]
