@@ -18,6 +18,7 @@ Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
 });
 
 Route::prefix('v1')->middleware(['throttle:api', 'auth:sanctum'])->group(function () {
+    
     Route::apiResource('products', \App\Http\Controllers\Api\V1\ProductController::class)->only(['store', 'destroy','update']);
     Route::apiResource('categories', \App\Http\Controllers\Api\V1\CategoryController::class)->only(['store', 'destroy','update']);
     Route::apiResource('comments', \App\Http\Controllers\Api\V1\CommentController::class)->only(['store', 'destroy', 'update']);
