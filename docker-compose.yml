@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: laravel_app_git
+    container_name: laravel_app
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html
@@ -13,6 +13,11 @@ services:
       - "8000:8000" # Проброс порта для Laravel
     environment:
       - PHP_OPCACHE_VALIDATE_TIMESTAMPS=0
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=laravel_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
     depends_on:
       - db
     networks:
@@ -20,14 +25,14 @@ services:
 
   db:
     image: mariadb:latest
-    container_name: mariadb_git
+    container_name: mariadb
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: laravel_user
-      MYSQL_PASSWORD: laravel_password
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     volumes:
       - db_data:/var/lib/mysql
     networks:
