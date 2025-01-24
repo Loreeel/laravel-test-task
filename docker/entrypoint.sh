@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 
-# Установка зависимостей, если они отсутствуют
+# Встановлення залежностей, якщо відсутні
 if [ ! -d "vendor" ]; then
     composer install
 fi
 
-# Выполнение миграций
+# Виконання миграцій
 php artisan migrate --force
 
-# Запуск встроенного сервера Laravel
+# Запуск серверу Laravel
 exec php artisan serve --host=0.0.0.0 --port=8000
