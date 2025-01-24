@@ -32,7 +32,7 @@ http://localhost:8000
 ## 4. API
 
 # Авторизація та аутентифікація
-###
+---
  POST api/v1/register Реєстрація користувача
  
  Необхідні поля:
@@ -41,7 +41,7 @@ http://localhost:8000
     	"email":"mail@email.com",
     	"password":"password"
     }
-###
+---
  POST api/v1//login   Авторизація користувача
  
   Необхідні поля:
@@ -49,5 +49,5 @@ http://localhost:8000
     	"email":"mail@email.com",
     	"password":"password"
     }
-    
+---
  GET  api/v1/logout   Видалення авторизаційного токену з БД
