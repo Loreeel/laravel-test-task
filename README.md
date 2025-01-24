@@ -28,3 +28,23 @@ docker-compose up --build
 Після успішного запуску контейнерів, додаток буде доступний за наступною адресою:
 
 http://localhost:8000
+
+## 4. API
+
+# Авторизація та аутентифікація
+ POST api/v1/register Реєстрація користувача
+ Необхідні поля:
+    {
+    	"name":"Name",
+    	"email":"mail@email.com",
+    	"password":"password"
+    }
+    
+ POST api/v1//login   Авторизація користувача
+  Необхідні поля:
+    {
+    	"email":"mail@email.com",
+    	"password":"password"
+    }
+    
+ GET  api/v1/logout   Видалення авторизаційного токену з БД
