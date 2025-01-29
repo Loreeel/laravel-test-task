@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -o errexit
 
 # Встановлення залежностей, якщо відсутні
 if [ ! -d "node_modules" ]; then
